@@ -21,14 +21,15 @@ jobs:
     # Install deno
     - name: Install Deno
       run: |
-        curl -fsSL https://deno.land/x/install/install.sh | sh
-        export PATH=$PATH:/home/runner/.deno/bin
+        curl -fsSL https://deno.land/x/install/install.sh | sh   
         
     # Printing deno version installed
     - name: Check Deno version
       run: |
+        export PATH=$PATH:/home/runner/.deno/bin
         deno --version
         deno info
+        
     # Doing unit test
     - name: Execute unit testing using deno
       run: |
