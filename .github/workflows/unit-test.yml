@@ -21,7 +21,7 @@ jobs:
     # Install deno and its dependancy
     - name: Install Deno and its dependancy
       run: |
-        sudo apt update && apt install git curl unzip -y
+        #sudo apt update && apt install git curl unzip -y
         pwd
         curl -fsSL https://deno.land/x/install/install.sh | sh
         pwd
