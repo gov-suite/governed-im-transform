@@ -9,7 +9,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "test-server-build"
-  test-server-build:
+  unit-testing:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -19,18 +19,10 @@ jobs:
     - uses: actions/checkout@v2
 
     # Install deno
-    - name: Install Deno
+    - name: Install Deno and execute unit testing
       run: |
-        curl -fsSL https://deno.land/x/install/install.sh | sh   
-        
-    # Printing deno version installed
-    - name: Check Deno version
-      run: |
-        export PATH=$PATH:/home/runner/.deno/bin
+        curl -fsSL https://deno.land/x/install/install.sh | sh
+        export PATH=$PATH:/home/runner/.deno/bin   
         deno --version
         deno info
-        
-    # Doing unit test
-    - name: Execute unit testing using deno
-      run: |
         deno test --unstable
