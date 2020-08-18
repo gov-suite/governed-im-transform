@@ -1,6 +1,6 @@
 name: testing
 
-# Controls when the action will run. Triggers the workflow on push or pull request
+# Controls when the action will run. Triggers the workflow on push
 # events but only for the master branch
 on:
   push:
@@ -8,8 +8,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  # This workflow contains a single job called "test-server-build"
+  test-server-build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -18,12 +18,18 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    # Install deno and its dependancy
-    - name: Install Deno and its dependancy
+    # Install deno
+    - name: Install Deno
       run: |
-        #sudo apt update && apt install git curl unzip -y
         curl -fsSL https://deno.land/x/install/install.sh | sh
         export PATH=$PATH:/home/runner/.deno/bin
+        
+    # Printing deno version installed
+    - name: Check Deno version
+      run: |
         deno --version
         deno info
+    # Doing unit test
+    - name: Execute unit testing using deno
+      run: |
         deno test --unstable
