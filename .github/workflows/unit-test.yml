@@ -25,4 +25,4 @@ jobs:
         export PATH=$PATH:/home/runner/.deno/bin   
         deno --version
         deno info
-        deno test --unstable
+        deno test --allow-read --unstable
