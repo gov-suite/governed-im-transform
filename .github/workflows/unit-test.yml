@@ -22,7 +22,6 @@ jobs:
     - name: Install Deno and its dependancy
       run: |
         #sudo apt update && apt install git curl unzip -y
-        curl -v
         curl -fsSL https://deno.land/x/install/install.sh | sh
         pwd
         export PATH=$PATH:/home/runner/.deno/bin
