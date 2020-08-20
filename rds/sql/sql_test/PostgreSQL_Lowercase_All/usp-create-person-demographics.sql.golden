@@ -52,6 +52,10 @@ AS $BODY$
 
   $BODY$;
   -- ALTER PROCEDURE usp_create_person_demographics(TEXT, TEXT, TEXT, TEXT, TIMESTAMPTZ, INTEGER, INTEGER, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, INTEGER) OWNER TO (TODO: OWNER);
+  INSERT INTO plpgsql_check_result
+  (function_id, line_no, "statement", sql_state, message, detail, hint,
+   "level", "position", query, context)
+  SELECT * FROM plpgsql_check_function_tb('usp_create_person_demographics');
 
 DROP FUNCTION IF EXISTS usp_create_person_demographics_wf(TEXT,TEXT,TEXT,TEXT,TIMESTAMPTZ,INTEGER,INTEGER,TEXT,TEXT,TEXT,TEXT,TEXT,TEXT,TEXT,INTEGER);
 CREATE OR REPLACE FUNCTION usp_create_person_demographics_wf(IN first_name TEXT,IN middle_name TEXT,IN last_name TEXT,IN email TEXT,IN dob TIMESTAMPTZ,IN gender INTEGER,IN person_type INTEGER,IN phone TEXT,IN address_line1 TEXT,IN address_line2 TEXT,IN city TEXT,IN state TEXT,IN country TEXT,IN zip_code TEXT,INOUT party_id INTEGER)
@@ -64,3 +68,7 @@ AS $BODY$
   END;
 $BODY$;
 -- ALTER FUNCTION usp_create_person_demographics_wf(TEXT,TEXT,TEXT,TEXT,TIMESTAMPTZ,INTEGER,INTEGER,TEXT,TEXT,TEXT,TEXT,TEXT,TEXT,TEXT,INTEGER) OWNER TO (TODO: OWNER);
+INSERT INTO plpgsql_check_result
+(function_id, line_no, "statement", sql_state, message, detail, hint,
+ "level", "position", query, context)
+SELECT * FROM plpgsql_check_function_tb('usp_create_person_demographics_wf');
