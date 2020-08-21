@@ -239,6 +239,19 @@ export abstract class ANSI implements gimRDS.Dialect {
     };
   }
 
+  
+  booleanColumnDDL(defn: ColumnSqlDdlGenInput): ColumnSqlDDL {
+    let defaultValue = gimc.isDefaultBooleanValue(defn.column.forAttr)
+      ? " DEFAULT FALSE"
+      : "";
+    return {
+      columnDDL: `${defn.columnName} ${
+        vm.resolveTextValue(defn.ctx, defn.sqlTypes.nonRefDDL)
+      }${defn.primaryKey}${defn.notNull}${defaultValue}`,
+    };
+  }
+
+
   genericColumnDDL(defn: ColumnSqlDdlGenInput): ColumnSqlDDL {
     return {
       columnDDL: `${defn.columnName} ${
@@ -257,6 +270,7 @@ export abstract class ANSI implements gimRDS.Dialect {
     }
     if (gimc.isTime(defn.column.forAttr)) return this.timeColumnDDL(defn);
     if (gimc.isDate(defn.column.forAttr)) return this.dateColumnDDL(defn);
+    if (gimc.isBoolean(defn.column.forAttr)) return this.booleanColumnDDL(defn);
     return this.genericColumnDDL(defn);
   }
 
