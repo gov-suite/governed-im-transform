@@ -247,7 +247,7 @@ CREATE TABLE IF NOT EXISTS configuration_value (
     party_id INTEGER NOT NULL,
     master_configuration_id INTEGER NOT NULL,
     value JSON NOT NULL,
-    is_multivalue INTEGER NOT NULL,
+    is_multivalue BOOLEAN NOT NULL DEFAULT FALSE,
     nameas VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,

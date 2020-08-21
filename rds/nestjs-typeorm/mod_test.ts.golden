@@ -1287,7 +1287,7 @@ export class ConfigurationValue {
 
   @ApiProperty({ required: true })
   @Column({name: 'is_multivalue'})
-  isMultivalue: number;
+  isMultivalue: boolean;
 
   @ApiProperty({ required: true })
   @Column({name: 'nameas'})

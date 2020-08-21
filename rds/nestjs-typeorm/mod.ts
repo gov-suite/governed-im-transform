@@ -218,6 +218,35 @@ export const defaultAttrFieldCreators: FieldCreatorForAttrKeys[] = [
     },
   },
   {
+    registryKeys: [
+      gim.DEFAULT_REGISTRY_KEY_MODULE + ".attr.Boolean",
+      // TODO gim.DEFAULT_REGISTRY_KEY_MODULE + ".attr.Boolean",
+    ],
+    constructor: {
+      createField(
+        parent: FieldCreator,
+        tr: TypeOrmTransformer,
+        tc: gimRDS.TableColumn,
+        errorHandler?: FieldCreatorErrorHandler,
+      ): FieldCreatorResult {
+        const attr = tc.column.forAttr as gim.Boolean;
+        const isRequired = attr.isRequired(
+          gimRDS.rdbmsCtxFactory.TODO(tr.options.rdbmsModel.spec),
+        );
+        return {
+          column: tc.column,
+          name: infl.toCamelCase(attr.name.objectFieldName),
+          tsType: "boolean",
+          decorators: [
+            `@ApiProperty({ required: ${isRequired} })`,
+            `@Column({name: '${tc.column.name(tr.context)}'})`,
+          ],
+          nullable: !isRequired,
+        };
+      },
+    },
+  },
+  {
     registryKeys: [gim.DEFAULT_REGISTRY_KEY_MODULE + ".attr.DateTime"],
     constructor: {
       createField(
