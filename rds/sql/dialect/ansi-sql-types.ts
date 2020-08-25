@@ -92,6 +92,44 @@ export class NumericIdentitySqlType implements gimRDS.AttrSqlType {
   }
 }
 
+export class BooleanSqlType implements gimRDS.AttrSqlType {
+  static readonly baseSqlType = `BOOLEAN`;
+  readonly attr: gimc.Boolean;
+
+  constructor(
+    ctx: gimRDS.RdbmsEngineContext,
+    readonly forSrc: gimRDS.AttrMapperSource,
+  ) {
+    if (gimc.isAttribute(forSrc)) {
+      this.attr = forSrc as gimc.Boolean;
+    } else {
+      this.attr = forSrc.attr as gimc.Boolean;
+    }
+  }
+
+  get forAttr(): gimc.Attribute {
+    return this.attr;
+  }
+
+  persistentColumn(
+    ctx: gimRDS.RdbmsEngineContext,
+    table: gimRDS.Table,
+  ): gimRDS.PersistentColumn {
+    return new gimRDS.BooleanColumn(ctx, table, this);
+  }
+
+  transientColumn(
+    ctx: gimRDS.RdbmsEngineContext,
+    te: gimc.TransientEntity,
+  ): gimRDS.TransientColumn {
+    return new gimRDS.BooleanTransientColumn(ctx, te, this);
+  }
+
+  sqlTypes(ctx: gimRDS.RdbmsEngineContext): gimRDS.ContextualSqlTypes {
+    return sqlTypes(BooleanSqlType.baseSqlType);
+  }
+}
+
 export class AutoIdentityNativeSqlType implements gimRDS.AttrSqlType {
   readonly attr: gimc.AutoIdentityNative;
 
@@ -557,6 +595,10 @@ export class AttrAnsiRdbmsEngineSqlTypesMapper
         gimc.DEFAULT_REGISTRY_KEY_MODULE + ".attr.Relationship",
       ],
       constructor: RelationshipSqlType,
+    },
+    {
+      registryKeys: [gimc.DEFAULT_REGISTRY_KEY_MODULE + ".attr.Boolean"],
+      constructor: BooleanSqlType,
     },
     {
       registryKeys: [gimc.DEFAULT_REGISTRY_KEY_MODULE + ".attr.Json"],

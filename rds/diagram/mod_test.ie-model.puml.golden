@@ -120,7 +120,7 @@
     * party_id: INTEGER <<FK(party)>>
     * master_configuration_id: INTEGER <<FK(master_configuration)>>
     * value: JSON
-    * is_multivalue: INTEGER
+    * is_multivalue: BOOLEAN
     * nameas: VARCHAR(255)
     * description: VARCHAR(255)
   }

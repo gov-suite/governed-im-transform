@@ -172,7 +172,7 @@ digraph G {
         <tr><td port="PARTY_ID">*</td><td></td><td>PARTY_ID</td><td>PARTY</td></tr>
         <tr><td port="MASTER_CONFIGURATION_ID">*</td><td></td><td>MASTER_CONFIGURATION_ID</td><td>MASTER_CONFIGURATION</td></tr>
         <tr><td port="VALUE">*</td><td></td><td>VALUE</td><td>JSON</td></tr>
-        <tr><td port="IS_MULTIVALUE">*</td><td></td><td>IS_MULTIVALUE</td><td>INTEGER</td></tr>
+        <tr><td port="IS_MULTIVALUE">*</td><td></td><td>IS_MULTIVALUE</td><td>BOOLEAN</td></tr>
         <tr><td port="NAMEAS">*</td><td></td><td>NAMEAS</td><td>VARCHAR(255)</td></tr>
         <tr><td port="DESCRIPTION">*</td><td></td><td>DESCRIPTION</td><td>VARCHAR(255)</td></tr>
         <tr><td port="CREATED_AT">*</td><td></td><td>CREATED_AT</td><td>TIMESTAMPTZ</td></tr>
