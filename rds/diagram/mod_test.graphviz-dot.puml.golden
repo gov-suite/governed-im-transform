@@ -204,6 +204,26 @@ digraph G {
         <tr><td port="RECORD_STATUS_ID">*</td><td></td><td>RECORD_STATUS_ID</td><td>RECORD_STATUS</td></tr>
           </table>>
             ]
+  PLPGSQL_CHECK_RESULT; [
+            label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+                <tr><td colspan="4">PLPGSQL_CHECK_RESULT;</td></tr>
+        <tr><td port="PLPGSQL_CHECK_RESULT;_ID">*</td><td>PK</td><td>PLPGSQL_CHECK_RESULT;_ID</td><td>INTEGER</td></tr>
+        <tr><td port="FUNCTION_ID"></td><td></td><td>FUNCTION_ID</td><td>VARCHAR(255)</td></tr>
+        <tr><td port="LINE_NO"></td><td></td><td>LINE_NO</td><td>INTEGER</td></tr>
+        <tr><td port="STATEMENT"></td><td></td><td>STATEMENT</td><td>VARCHAR(255)</td></tr>
+        <tr><td port="SQL_STATE"></td><td></td><td>SQL_STATE</td><td>VARCHAR(255)</td></tr>
+        <tr><td port="MESSAGE"></td><td></td><td>MESSAGE</td><td>VARCHAR(255)</td></tr>
+        <tr><td port="DETAIL"></td><td></td><td>DETAIL</td><td>VARCHAR(255)</td></tr>
+        <tr><td port="HINT"></td><td></td><td>HINT</td><td>VARCHAR(255)</td></tr>
+        <tr><td port="LEVEL"></td><td></td><td>LEVEL</td><td>VARCHAR(255)</td></tr>
+        <tr><td port="POSITION"></td><td></td><td>POSITION</td><td>VARCHAR(255)</td></tr>
+        <tr><td port="QUERY"></td><td></td><td>QUERY</td><td>VARCHAR(255)</td></tr>
+        <tr><td port="CONTEXT"></td><td></td><td>CONTEXT</td><td>VARCHAR(255)</td></tr>
+        <tr><td port="CREATED_AT">*</td><td></td><td>CREATED_AT</td><td>TIMESTAMPTZ</td></tr>
+        <tr><td port="UPDATED_ON"></td><td></td><td>UPDATED_ON</td><td>TIMESTAMPTZ</td></tr>
+        <tr><td port="RECORD_STATUS_ID">*</td><td></td><td>RECORD_STATUS_ID</td><td>RECORD_STATUS</td></tr>
+          </table>>
+            ]
 PARTY -> PARTY_IDENTIFIER:PARTY_ID
 PARTY -> PARTY_RELATION:ORIGIN_PARTY_ID
 PARTY -> PARTY_RELATION:RELATED_PARTY_ID

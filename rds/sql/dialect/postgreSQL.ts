@@ -187,6 +187,11 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
         ${fn.bodyCode}
         $BODY$;
         -- ALTER FUNCTION ${objDefnName}${argTypes} OWNER TO (TODO: OWNER);
+        INSERT INTO plpgsql_check_result
+        (function_id, line_no, "statement", sql_state, message, detail, hint,
+         "level", "position", query, context)
+        SELECT functionid, lineno, "statement", sqlstate, message, detail, hint,
+        "level", "position", query, context FROM plpgsql_check_function_tb('${objDefnName}');
         `,
         ),
       };
@@ -252,6 +257,11 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
         END;
       $BODY$;
       -- ALTER FUNCTION ${objWfDefnName}${argTypes} OWNER TO (TODO: OWNER);
+      INSERT INTO plpgsql_check_result
+      (function_id, line_no, "statement", sql_state, message, detail, hint,
+       "level", "position", query, context)
+      SELECT functionid, lineno, "statement", sqlstate, message, detail, hint,
+      "level", "position", query, context FROM plpgsql_check_function_tb('${objWfDefnName}');
       `,
     };
   }
@@ -294,6 +304,12 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
         ${sp.bodyCode}
         $BODY$;
         -- ALTER PROCEDURE ${objDefnName}${argTypes} OWNER TO (TODO: OWNER);
+        INSERT INTO plpgsql_check_result
+        (function_id, line_no, "statement", sql_state, message, detail, hint,
+         "level", "position", query, context)
+        SELECT functionid, lineno, "statement", sqlstate, message, detail, hint,
+        "level", "position", query, context 
+        FROM plpgsql_check_function_tb('${objDefnName}');
       ${wrapperFuncCode}`),
       };
     } else {
