@@ -4,6 +4,7 @@ import {
   contextMgr as cm,
   governedIM as gimc,
   governedImRDS as gimRDS,
+  governedImRDSModels as models,
   governedImTransform as gimTr,
   polyglotArtfNature,
   textInflect as infl,
@@ -173,6 +174,8 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
             .join(", ")
         })`;
       }
+      const plPgSqlCheck = this.plPgCheckFunctionDDL(ctx, routine, undefined);
+
       return {
         ...fn,
         isStoredRoutineCode: true,
@@ -187,11 +190,7 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
         ${fn.bodyCode}
         $BODY$;
         -- ALTER FUNCTION ${objDefnName}${argTypes} OWNER TO (TODO: OWNER);
-        INSERT INTO plpgsql_check_result
-        (function_id, line_no, "statement", sql_state, message, detail, hint,
-         "level", "position", query, context)
-        SELECT functionid, lineno, "statement", sqlstate, message, detail, hint,
-        "level", "position", query, context FROM plpgsql_check_function_tb('${objDefnName}');
+        ${plPgSqlCheck};
         `,
         ),
       };
@@ -242,6 +241,7 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
           .join(", ")
       })`;
     }
+    const plPgSqlCheck = this.plPgCheckFunctionDDL(ctx, routine, spfw);
 
     return {
       isStoredRoutineCode: true,
@@ -257,11 +257,7 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
         END;
       $BODY$;
       -- ALTER FUNCTION ${objWfDefnName}${argTypes} OWNER TO (TODO: OWNER);
-      INSERT INTO plpgsql_check_result
-      (function_id, line_no, "statement", sql_state, message, detail, hint,
-       "level", "position", query, context)
-      SELECT functionid, lineno, "statement", sqlstate, message, detail, hint,
-      "level", "position", query, context FROM plpgsql_check_function_tb('${objWfDefnName}');
+      ${plPgSqlCheck};
       `,
     };
   }
@@ -293,6 +289,8 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
           codeSupplier.storedProcedureFunctionWrapper(),
         ).sourceCode
         : "";
+      const plPgSqlCheck = this.plPgCheckFunctionDDL(ctx, routine, undefined);
+
       return {
         ...sp,
         isStoredRoutineCode: true,
@@ -304,12 +302,7 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
         ${sp.bodyCode}
         $BODY$;
         -- ALTER PROCEDURE ${objDefnName}${argTypes} OWNER TO (TODO: OWNER);
-        INSERT INTO plpgsql_check_result
-        (function_id, line_no, "statement", sql_state, message, detail, hint,
-         "level", "position", query, context)
-        SELECT functionid, lineno, "statement", sqlstate, message, detail, hint,
-        "level", "position", query, context 
-        FROM plpgsql_check_function_tb('${objDefnName}');
+      ${plPgSqlCheck};
       ${wrapperFuncCode}`),
       };
     } else {
@@ -379,6 +372,44 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
         });
       }
     }
+  }
+
+  plPgCheckFunctionDDL(
+    ctx: sqlTrCtx.RdbmsModelSqlTransformerContext,
+    routine: gimRDS.StoredProcedure<any>,
+    spfw: gimRDS.StoredProcedureFunctionWrapper | undefined,
+  ): string {
+    var plPgSqlQuery: string;
+    const entPlPgSql = ctx.rdbmsModel.imStructure.entities.find((e) =>
+      e instanceof models.PlPgSqlCheckResult
+    );
+    let objDefnName = undefined;
+    if (spfw != undefined) {
+      objDefnName = ctx.dialect.namingStrategy
+        .objectDefnNames()
+        .storedProcWrapperFuncDefnName(ctx, routine.entity, spfw);
+    } else {
+      objDefnName = ctx.dialect.namingStrategy
+        .objectDefnNames()
+        .storedFuncDefnName(ctx, routine.entity);
+    }
+    const entityName = entPlPgSql?.name.singular.inflect();
+    const plPgCheckFunctionName = models.PLPGSQL_CHECK_FUNCTION_NAME;
+    const plPgCheckFunctionColumns = models.PLPGSQL_CHECK_FUNCTION_COLUMNS;
+    if (entityName != undefined) {
+      plPgSqlQuery = `
+       INSERT INTO ${entityName}
+      (${
+        entPlPgSql?.attrs.slice(1, 12).map((x) =>
+          x.name.relationalColumnName.inflect()
+        ).join(", ")
+      })
+      SELECT ${plPgCheckFunctionColumns} FROM ${plPgCheckFunctionName}('${objDefnName}')`;
+    } else {
+      plPgSqlQuery =
+        ` SELECT ${plPgCheckFunctionColumns} FROM ${plPgCheckFunctionName}('${objDefnName}')`;
+    }
+    return plPgSqlQuery;
   }
 }
 
