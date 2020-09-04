@@ -283,18 +283,18 @@ CREATE TABLE IF NOT EXISTS configuration_feature_flag (
     FOREIGN KEY (record_status_id) REFERENCES record_status(id)
 );
 
-CREATE TABLE IF NOT EXISTS plpgsql_check_result; (
+CREATE TABLE IF NOT EXISTS plpgsql_check_result (
     id BIGSERIAL PRIMARY KEY,
     function_id VARCHAR(255),
     line_no INTEGER,
-    statement VARCHAR(255),
+    statement VARCHAR(3000),
     sql_state VARCHAR(255),
-    message VARCHAR(255),
-    detail VARCHAR(255),
+    message VARCHAR(3000),
+    detail VARCHAR(3000),
     hint VARCHAR(255),
     level VARCHAR(255),
     position VARCHAR(255),
-    query VARCHAR(255),
+    query VARCHAR(3000),
     context VARCHAR(255),
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_on TIMESTAMPTZ,

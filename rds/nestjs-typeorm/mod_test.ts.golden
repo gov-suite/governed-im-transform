@@ -1449,11 +1449,11 @@ export class ConfigurationFeatureFlagController implements CrudController<Config
 export class ConfigurationFeatureFlagModule {}
 allModules.push(ConfigurationFeatureFlagModule)
 
-@Entity({name: 'plpgsql_check_result;'})
-export class PlpgsqlCheckResult; {
+@Entity({name: 'plpgsql_check_result'})
+export class PlpgsqlCheckResult {
 
   @ApiProperty({ required: true })
-  @PrimaryGeneratedColumn({name: 'plpgsql_check_result;_id'})
+  @PrimaryGeneratedColumn({name: 'plpgsql_check_result_id'})
   id: number;
 
   @ApiProperty({ required: false })
@@ -1515,25 +1515,25 @@ export class PlpgsqlCheckResult; {
 }
 
 @Injectable()
-export class PlpgsqlCheckResult;Service extends TypeOrmCrudService<PlpgsqlCheckResult;> {
-    constructor(@InjectRepository(PlpgsqlCheckResult;) repo: Repository<PlpgsqlCheckResult;>) {
+export class PlpgsqlCheckResultService extends TypeOrmCrudService<PlpgsqlCheckResult> {
+    constructor(@InjectRepository(PlpgsqlCheckResult) repo: Repository<PlpgsqlCheckResult>) {
         super(repo);
     }
 }
 
-@Crud({ model: { type: PlpgsqlCheckResult; }})
-@Controller('plpgsql-check-result;')
-export class PlpgsqlCheckResult;Controller implements CrudController<PlpgsqlCheckResult;> {
-    constructor(public service: PlpgsqlCheckResult;Service) { }
+@Crud({ model: { type: PlpgsqlCheckResult }})
+@Controller('plpgsql-check-result')
+export class PlpgsqlCheckResultController implements CrudController<PlpgsqlCheckResult> {
+    constructor(public service: PlpgsqlCheckResultService) { }
 }
 
 @Module({
-  controllers: [PlpgsqlCheckResult;Controller],
-  providers: [PlpgsqlCheckResult;Service],
+  controllers: [PlpgsqlCheckResultController],
+  providers: [PlpgsqlCheckResultService],
   imports: [
-    TypeOrmModule.forFeature([PlpgsqlCheckResult;]),
+    TypeOrmModule.forFeature([PlpgsqlCheckResult]),
   ],
-  exports: [PlpgsqlCheckResult;Service],
+  exports: [PlpgsqlCheckResultService],
 })
-export class PlpgsqlCheckResult;Module {}
-allModules.push(PlpgsqlCheckResult;Module)
+export class PlpgsqlCheckResultModule {}
+allModules.push(PlpgsqlCheckResultModule)

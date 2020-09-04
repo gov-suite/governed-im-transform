@@ -138,19 +138,19 @@
     * configuration_master_options_id: INTEGER <<FK(configuration_master_options)>>
     * master_configuration_id: INTEGER <<FK(master_configuration)>>
   }
-  entity "plpgsql_check_result;" as plpgsql_check_result; {
+  entity "plpgsql_check_result" as plpgsql_check_result {
     * **id**: INTEGER
     --
      function_id: VARCHAR(255)
      line_no: INTEGER
-     statement: VARCHAR(255)
+     statement: VARCHAR(3000)
      sql_state: VARCHAR(255)
-     message: VARCHAR(255)
-     detail: VARCHAR(255)
+     message: VARCHAR(3000)
+     detail: VARCHAR(3000)
      hint: VARCHAR(255)
      level: VARCHAR(255)
      position: VARCHAR(255)
-     query: VARCHAR(255)
+     query: VARCHAR(3000)
      context: VARCHAR(255)
   }
 

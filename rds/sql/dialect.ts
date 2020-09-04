@@ -239,7 +239,6 @@ export abstract class ANSI implements gimRDS.Dialect {
     };
   }
 
-  
   booleanColumnDDL(defn: ColumnSqlDdlGenInput): ColumnSqlDDL {
     let defaultValue = gimc.isDefaultBooleanValue(defn.column.forAttr)
       ? " DEFAULT FALSE"
@@ -250,7 +249,6 @@ export abstract class ANSI implements gimRDS.Dialect {
       }${defn.primaryKey}${defn.notNull}${defaultValue}`,
     };
   }
-
 
   genericColumnDDL(defn: ColumnSqlDdlGenInput): ColumnSqlDDL {
     return {
