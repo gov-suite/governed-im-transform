@@ -174,7 +174,7 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
             .join(", ")
         })`;
       }
-      const plPgSqlCheck = this.plPgCheckFunctionDDL(ctx, routine, undefined);
+      const plPgSqlCheck = this.plPgCheckFunctionDDL(ctx, routine);
 
       return {
         ...fn,
@@ -289,7 +289,7 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
           codeSupplier.storedProcedureFunctionWrapper(),
         ).sourceCode
         : "";
-      const plPgSqlCheck = this.plPgCheckFunctionDDL(ctx, routine, undefined);
+      const plPgSqlCheck = this.plPgCheckFunctionDDL(ctx, routine);
 
       return {
         ...sp,
@@ -377,7 +377,7 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
   plPgCheckFunctionDDL(
     ctx: sqlTrCtx.RdbmsModelSqlTransformerContext,
     routine: gimRDS.StoredProcedure<any>,
-    spfw: gimRDS.StoredProcedureFunctionWrapper | undefined,
+    spfw?: gimRDS.StoredProcedureFunctionWrapper,
   ): string {
     var plPgSqlQuery: string;
     const entPlPgSql = ctx.rdbmsModel.imStructure.entities.find((e) =>
