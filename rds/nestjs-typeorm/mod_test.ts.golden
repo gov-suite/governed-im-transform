@@ -1448,3 +1448,92 @@ export class ConfigurationFeatureFlagController implements CrudController<Config
 })
 export class ConfigurationFeatureFlagModule {}
 allModules.push(ConfigurationFeatureFlagModule)
+
+@Entity({name: 'plpgsql_check_result'})
+export class PlpgsqlCheckResult {
+
+  @ApiProperty({ required: true })
+  @PrimaryGeneratedColumn({name: 'plpgsql_check_result_id'})
+  id: number;
+
+  @ApiProperty({ required: false })
+  @Column({name: 'function_id'})
+  functionId?: string;
+
+  @ApiProperty({ required: false })
+  @Column({name: 'line_no'})
+  lineNo?: number;
+
+  @ApiProperty({ required: false })
+  @Column({name: 'statement'})
+  statement?: string;
+
+  @ApiProperty({ required: false })
+  @Column({name: 'sql_state'})
+  sqlState?: string;
+
+  @ApiProperty({ required: false })
+  @Column({name: 'message'})
+  message?: string;
+
+  @ApiProperty({ required: false })
+  @Column({name: 'detail'})
+  detail?: string;
+
+  @ApiProperty({ required: false })
+  @Column({name: 'hint'})
+  hint?: string;
+
+  @ApiProperty({ required: false })
+  @Column({name: 'level'})
+  level?: string;
+
+  @ApiProperty({ required: false })
+  @Column({name: 'position'})
+  position?: string;
+
+  @ApiProperty({ required: false })
+  @Column({name: 'query'})
+  query?: string;
+
+  @ApiProperty({ required: false })
+  @Column({name: 'context'})
+  context?: string;
+
+  @ApiProperty({ required: true })
+  @Column({name: 'created_at'})
+  createdAt: Date;
+
+  @ApiProperty({ required: false })
+  @Column({name: 'updated_on'})
+  updatedOn?: Date;
+
+  @ApiProperty({ required: true })
+  @OneToOne(type => RecordStatus)
+  @JoinColumn({name: 'record_status_id'})
+  recordStatus: RecordStatus;
+}
+
+@Injectable()
+export class PlpgsqlCheckResultService extends TypeOrmCrudService<PlpgsqlCheckResult> {
+    constructor(@InjectRepository(PlpgsqlCheckResult) repo: Repository<PlpgsqlCheckResult>) {
+        super(repo);
+    }
+}
+
+@Crud({ model: { type: PlpgsqlCheckResult }})
+@Controller('plpgsql-check-result')
+export class PlpgsqlCheckResultController implements CrudController<PlpgsqlCheckResult> {
+    constructor(public service: PlpgsqlCheckResultService) { }
+}
+
+@Module({
+  controllers: [PlpgsqlCheckResultController],
+  providers: [PlpgsqlCheckResultService],
+  imports: [
+    TypeOrmModule.forFeature([PlpgsqlCheckResult]),
+  ],
+  exports: [PlpgsqlCheckResultService],
+})
+export class PlpgsqlCheckResultModule {}
+allModules.push(PlpgsqlCheckResultModule)

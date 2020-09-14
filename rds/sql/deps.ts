@@ -1,5 +1,6 @@
 export * as governedIM from "https://denopkg.com/gov-suite/governed-im@v0.6.0/core/mod.ts";
-export * as governedImRDS from "https://denopkg.com/gov-suite/governed-im-rds@v0.7.0/rds/mod.ts";
+export * as governedImRDS from "https://denopkg.com/gov-suite/governed-im-rds@v0.10.0/rds/mod.ts";
+export * as governedImRDSModels from "https://denopkg.com/gov-suite/governed-im-rds@v0.10.0/models/mod.ts";
 export * as governedImTransform from "https://denopkg.com/gov-suite/governed-im@v0.6.0/transform/mod.ts";
 export * as artfPersist from "https://denopkg.com/shah/artifacts-persistence@v1.0.17/mod.ts";
 export * as polyglotArtfNature from "https://denopkg.com/shah/artifacts-persistence@v1.0.17/polyglot/mod.ts";

@@ -239,7 +239,6 @@ export abstract class ANSI implements gimRDS.Dialect {
     };
   }
 
-  
   booleanColumnDDL(defn: ColumnSqlDdlGenInput): ColumnSqlDDL {
     let defaultValue = gimc.isDefaultBooleanValue(defn.column.forAttr)
       ? " DEFAULT FALSE"
@@ -250,7 +249,6 @@ export abstract class ANSI implements gimRDS.Dialect {
       }${defn.primaryKey}${defn.notNull}${defaultValue}`,
     };
   }
-
 
   genericColumnDDL(defn: ColumnSqlDdlGenInput): ColumnSqlDDL {
     return {
@@ -535,9 +533,18 @@ export abstract class ANSI implements gimRDS.Dialect {
     this.persistArtifacts(ctx, ph, pa.afterStructs);
     this.persistArtifacts(ctx, ph, pa.types);
     this.persistArtifacts(ctx, ph, pa.views);
+    this.persistArtifacts(
+      ctx,
+      ph,
+      pa.content.filter((x) => x.destAs.persistAsName == "content-all"),
+    );
     this.persistArtifacts(ctx, ph, pa.storedFunctions);
     this.persistArtifacts(ctx, ph, pa.storedProcedures);
-    this.persistArtifacts(ctx, ph, pa.content);
+    this.persistArtifacts(
+      ctx,
+      ph,
+      pa.content.filter((x) => x.destAs.persistAsName != "content-all"),
+    );
     this.persistArtifacts(ctx, ph, pa.afterContent);
     return mainArtifact;
   }

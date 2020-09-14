@@ -4,6 +4,7 @@ import {
   contextMgr as cm,
   governedIM as gimc,
   governedImRDS as gimRDS,
+  governedImRDSModels as models,
   governedImTransform as gimTr,
   polyglotArtfNature,
   textInflect as infl,
@@ -173,6 +174,8 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
             .join(", ")
         })`;
       }
+      const plPgSqlCheck = this.plPgCheckFunctionDDL(ctx, routine);
+
       return {
         ...fn,
         isStoredRoutineCode: true,
@@ -187,6 +190,7 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
         ${fn.bodyCode}
         $BODY$;
         -- ALTER FUNCTION ${objDefnName}${argTypes} OWNER TO (TODO: OWNER);
+        ${plPgSqlCheck};
         `,
         ),
       };
@@ -237,6 +241,7 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
           .join(", ")
       })`;
     }
+    const plPgSqlCheck = this.plPgCheckFunctionDDL(ctx, routine, spfw);
 
     return {
       isStoredRoutineCode: true,
@@ -252,6 +257,7 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
         END;
       $BODY$;
       -- ALTER FUNCTION ${objWfDefnName}${argTypes} OWNER TO (TODO: OWNER);
+      ${plPgSqlCheck};
       `,
     };
   }
@@ -283,6 +289,8 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
           codeSupplier.storedProcedureFunctionWrapper(),
         ).sourceCode
         : "";
+      const plPgSqlCheck = this.plPgCheckFunctionDDL(ctx, routine);
+
       return {
         ...sp,
         isStoredRoutineCode: true,
@@ -294,6 +302,7 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
         ${sp.bodyCode}
         $BODY$;
         -- ALTER PROCEDURE ${objDefnName}${argTypes} OWNER TO (TODO: OWNER);
+      ${plPgSqlCheck};
       ${wrapperFuncCode}`),
       };
     } else {
@@ -363,6 +372,44 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
         });
       }
     }
+  }
+
+  plPgCheckFunctionDDL(
+    ctx: sqlTrCtx.RdbmsModelSqlTransformerContext,
+    routine: gimRDS.StoredProcedure<any>,
+    spfw?: gimRDS.StoredProcedureFunctionWrapper,
+  ): string {
+    var plPgSqlQuery: string;
+    const entPlPgSql = ctx.rdbmsModel.imStructure.entities.find((e) =>
+      e instanceof models.PlPgSqlCheckResult
+    );
+    let objDefnName = undefined;
+    if (spfw != undefined) {
+      objDefnName = ctx.dialect.namingStrategy
+        .objectDefnNames()
+        .storedProcWrapperFuncDefnName(ctx, routine.entity, spfw);
+    } else {
+      objDefnName = ctx.dialect.namingStrategy
+        .objectDefnNames()
+        .storedFuncDefnName(ctx, routine.entity);
+    }
+    const entityName = entPlPgSql?.name.singular.inflect();
+    const plPgCheckFunctionName = models.PLPGSQL_CHECK_FUNCTION_NAME;
+    const plPgCheckFunctionColumns = models.PLPGSQL_CHECK_FUNCTION_COLUMNS;
+    if (entityName != undefined) {
+      plPgSqlQuery = `
+       INSERT INTO ${entityName}
+      (${
+        entPlPgSql?.attrs.slice(1, 12).map((x) =>
+          x.name.relationalColumnName.inflect()
+        ).join(", ")
+      })
+      SELECT ${plPgCheckFunctionColumns} FROM ${plPgCheckFunctionName}('${objDefnName}')`;
+    } else {
+      plPgSqlQuery =
+        ` SELECT ${plPgCheckFunctionColumns} FROM ${plPgCheckFunctionName}('${objDefnName}')`;
+    }
+    return plPgSqlQuery;
   }
 }
 
