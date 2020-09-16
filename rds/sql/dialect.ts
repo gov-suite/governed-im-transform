@@ -103,6 +103,7 @@ export abstract class ANSI implements gimRDS.Dialect {
 
   insertRowDML(
     rsCtx: gimRDS.RdbmsModelContext,
+    // deno-lint-ignore no-explicit-any
     row: gimc.EntityAttrValues<any>,
   ): InsertRowSqlDML {
     const table = rsCtx.rdbmsModel.table(row.entity);
@@ -379,7 +380,9 @@ export abstract class ANSI implements gimRDS.Dialect {
 
   viewDDL(
     ctx: sqlTrCtx.RdbmsModelSqlTransformerContext,
+    // deno-lint-ignore no-explicit-any
     view: gimRDS.View<any>,
+    // deno-lint-ignore no-explicit-any
     sqlSupplier: gimRDS.SqlViewQuerySupplier<any>,
   ): gimRDS.ViewBodySqlQuery | gimRDS.CreateViewStatement {
     const query = sqlSupplier.sqlViewQuery(ctx, view);

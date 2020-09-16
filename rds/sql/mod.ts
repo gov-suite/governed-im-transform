@@ -1,6 +1,6 @@
-import * as sqlTrCtx from "./context.ts";
-import { governedImTransform as gimTr } from "./deps.ts";
-import * as sqlTr from "./transform.ts";
+import type * as sqlTrCtx from "./context.ts";
+import type { governedImTransform as gimTr } from "./deps.ts";
+import type * as sqlTr from "./transform.ts";
 
 export * from "./context.ts";
 export * from "./dialect.ts";

@@ -366,6 +366,7 @@ export class DateTimeSqlType implements gimRDS.AttrSqlType {
 }
 
 export class SelfReferenceSqlType implements gimRDS.AttrSqlType {
+  // deno-lint-ignore no-explicit-any
   readonly attr: gimc.SelfReference<any>;
   readonly refSqlTypes?: gimRDS.ContextualSqlTypes;
 
@@ -375,8 +376,10 @@ export class SelfReferenceSqlType implements gimRDS.AttrSqlType {
     eh?: gimRDS.AttrSqlTypesErrorHandler,
   ) {
     if (gimc.isAttribute(forSrc)) {
+      // deno-lint-ignore no-explicit-any
       this.attr = forSrc as gimc.SelfReference<any>;
     } else {
+      // deno-lint-ignore no-explicit-any
       this.attr = forSrc.attr as gimc.SelfReference<any>;
     }
     if (gimc.isIdentityManager(this.attr.parent)) {
@@ -421,6 +424,7 @@ export class SelfReferenceSqlType implements gimRDS.AttrSqlType {
 }
 
 export class RelationshipSqlType implements gimRDS.AttrSqlType {
+  // deno-lint-ignore no-explicit-any
   readonly attr: gimc.Relationship<any>;
   readonly refSqlTypes?: gimRDS.ContextualSqlTypes;
 
@@ -430,8 +434,10 @@ export class RelationshipSqlType implements gimRDS.AttrSqlType {
     eh?: gimRDS.AttrSqlTypesErrorHandler,
   ) {
     if (gimc.isAttribute(forSrc)) {
+      // deno-lint-ignore no-explicit-any
       this.attr = forSrc as gimc.Relationship<any>;
     } else {
+      // deno-lint-ignore no-explicit-any
       this.attr = forSrc.attr as gimc.Relationship<any>;
     }
     const ref = this.attr.reference;

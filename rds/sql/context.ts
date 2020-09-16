@@ -3,7 +3,7 @@ import {
   contextMgr as cm,
   governedImRDS as gimRDS,
 } from "./deps.ts";
-import * as sqlTr from "./transform.ts";
+import type * as sqlTr from "./transform.ts";
 
 export interface RdbmsModelSqlTransformerContext
   extends gimRDS.RdbmsModelContext {

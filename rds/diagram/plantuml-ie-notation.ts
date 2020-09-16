@@ -1,4 +1,4 @@
-import * as trSQL from "../sql/mod.ts";
+import type * as trSQL from "../sql/mod.ts";
 import {
   governedIM as gim,
   governedImRDS as gimRDS,
@@ -167,6 +167,7 @@ export class PlantUmlInfoEngrModelTransformer
 
   protected relationships(): string[] {
     let result: string[] = [];
+    console.dir(this.options.rdbmsModel.relationships);
     for (const rel of this.options.rdbmsModel.relationships) {
       if (
         !this.includeRelationship(
@@ -176,9 +177,11 @@ export class PlantUmlInfoEngrModelTransformer
           rel,
         )
       ) {
+        console.log("01", rel);
         continue;
       }
       const refIsEnum = !gim.isEnumeration(rel.references.table.entity);
+      console.log("02", refIsEnum);
 
       const src = rel.source;
       const ref = rel.references;
@@ -194,7 +197,9 @@ export class PlantUmlInfoEngrModelTransformer
         }`,
       );
     }
+    console.log("03", result.length);
     if (result.length > 0) result.unshift("");
+    console.dir(result);
     return result;
   }
 

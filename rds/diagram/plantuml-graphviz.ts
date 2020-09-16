@@ -1,4 +1,4 @@
-import * as trSQL from "../sql/mod.ts";
+import type * as trSQL from "../sql/mod.ts";
 import {
   governedIM as gim,
   governedImRDS as gimRDS,

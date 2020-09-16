@@ -1,4 +1,4 @@
-import * as sqlTrCtx from "../context.ts";
+import type * as sqlTrCtx from "../context.ts";
 import {
   artfPersist as ap,
   contextMgr as cm,
@@ -13,7 +13,7 @@ import {
 } from "../deps.ts";
 import * as diaImpl from "../dialect.ts";
 import * as naming from "../naming.ts";
-import * as sqlTr from "../transform.ts";
+import type * as sqlTr from "../transform.ts";
 
 export interface PostgreSqlEngineExtension {
   readonly isPostgreSqlEngineExtension: true;
@@ -28,9 +28,11 @@ export function defaultPostgreSqlEmitExtnInitSQL(
   };
 }
 
+// deno-lint-ignore no-empty-interface
 export interface PostgreSqlEncryptionExtension
   extends PostgreSqlEngineExtension {}
 
+// deno-lint-ignore no-empty-interface
 export interface PostgreSqlStoredRoutineLintExtension
   extends PostgreSqlEngineExtension {}
 
@@ -58,6 +60,7 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
 
   callStoredProcedureStatement(
     rsCtx: gimRDS.RdbmsModelContext,
+    // deno-lint-ignore no-explicit-any
     eav: gimc.EntityAttrValues<any>,
   ): string {
     const valueCtx = gimRDS.rdbmsCtxFactory.rdbmsSqlValueContext(rsCtx);
@@ -94,7 +97,9 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
 
   typeDefnDDL(
     ctx: sqlTrCtx.RdbmsModelSqlTransformerContext,
+    // deno-lint-ignore no-explicit-any
     typeDefn: gimRDS.TypeDefn<any>,
+    // deno-lint-ignore no-explicit-any
     sqlSupplier: gimRDS.TypeDefnSqlSupplier<any>,
   ): gimRDS.SqlStatement {
     if (sqlSupplier.typeDefnSqlStatement) {
@@ -118,6 +123,7 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
 
   argSignatureDDL(
     ctx: sqlTrCtx.RdbmsModelSqlTransformerContext,
+    // deno-lint-ignore no-explicit-any
     routine: gimRDS.StoredFunction<any>,
     arg: gimRDS.StoredRoutineArg,
   ): string {
@@ -141,7 +147,9 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
 
   storedFunctionDDL(
     ctx: sqlTrCtx.RdbmsModelSqlTransformerContext,
+    // deno-lint-ignore no-explicit-any
     routine: gimRDS.StoredFunction<any>,
+    // deno-lint-ignore no-explicit-any
     codeSupplier: gimRDS.StoredFunctionCodeSupplier<any>,
   ): gimRDS.StoredRoutineCode {
     const fn = codeSupplier.storedFunctionCode(ctx, routine);
@@ -201,6 +209,7 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
 
   storedProcedureWrapperFunctionDDL(
     ctx: sqlTrCtx.RdbmsModelSqlTransformerContext,
+    // deno-lint-ignore no-explicit-any
     routine: gimRDS.StoredProcedure<any>,
     spfw: gimRDS.StoredProcedureFunctionWrapper,
   ): gimRDS.StoredRoutineCode {
@@ -264,7 +273,9 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
 
   storedProcedureDDL(
     ctx: sqlTrCtx.RdbmsModelSqlTransformerContext,
+    // deno-lint-ignore no-explicit-any
     routine: gimRDS.StoredProcedure<any>,
+    // deno-lint-ignore no-explicit-any
     codeSupplier: gimRDS.StoredProcedureCodeSupplier<any>,
   ): gimRDS.StoredRoutineCode {
     const sp = codeSupplier.storedProcedureCode(ctx, routine);
@@ -376,6 +387,7 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
 
   plPgCheckFunctionDDL(
     ctx: sqlTrCtx.RdbmsModelSqlTransformerContext,
+    // deno-lint-ignore no-explicit-any
     routine: gimRDS.StoredProcedure<any>,
     spfw?: gimRDS.StoredProcedureFunctionWrapper,
   ): string {

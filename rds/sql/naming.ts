@@ -1,4 +1,4 @@
-import * as sqlTrCtx from "./context.ts";
+import type * as sqlTrCtx from "./context.ts";
 import {
   artfPersist as ap,
   governedIM as gimc,
