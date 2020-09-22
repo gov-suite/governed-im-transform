@@ -1,4 +1,4 @@
-import { assert } from "https://deno.land/std@v0.62.0/testing/asserts.ts";
+import { assert } from "https://deno.land/std@v0.70.0/testing/asserts.ts";
 import {
   governedIM as gim,
   governedImRDS as gimRDS,
