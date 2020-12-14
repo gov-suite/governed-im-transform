@@ -41,6 +41,7 @@ export interface TestAgainstGolden {
   readonly goldenFile: string;
 }
 
+// deno-lint-ignore require-await
 export async function testRdbmsModelTransform(
   transformer: trSQL.RdbmsModelTransformerConstructor,
   dialect: gimRDS.Dialect | gimRDS.DialectConstructor,
@@ -60,7 +61,7 @@ export async function testRdbmsModelTransform(
   // if a file name (string) is given, use that as the "golden file"
   // if a list of golden files is given, use that list
   // if no list is given, assume that each artifact name has a golden file with the same name
-  let testAgainst: TestAgainstGolden[] = golden
+  const testAgainst: TestAgainstGolden[] = golden
     ? (typeof golden === "string" ? [{ goldenFile: golden }] : golden)
     : [];
   if (testAgainst.length == 0) {

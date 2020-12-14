@@ -21,6 +21,7 @@ export interface FieldCreatorErrorHandler {
     totr: TypeOrmTransformer,
     tc: gimRDS.TableColumn,
     msg: string,
+    // deno-lint-ignore no-explicit-any
     ...args: any[]
   ): void;
 }
@@ -30,6 +31,7 @@ const defaultFieldCreatorErrorHandler: FieldCreatorErrorHandler = {
     totr: TypeOrmTransformer,
     tc: gimRDS.TableColumn,
     msg: string,
+    // deno-lint-ignore no-explicit-any
     ...args: any[]
   ): void {
     console.error(msg);
@@ -475,7 +477,7 @@ export class TypeOrmTransformer implements gimTr.InfoModelTransformer {
     for (const table of this.options.rdbmsModel.tables) {
       const entity = table.entity;
       const typeName = infl.toPascalCase(entity.name.singular);
-      let fields: Field[] = [];
+      const fields: Field[] = [];
       let extendsEntity: gimRDS.TableColumn | undefined = undefined;
       for (const col of table.columns) {
         if (gim.isExtendsRelationship(col.forAttr)) {
