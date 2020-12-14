@@ -1,7 +1,4 @@
-import {
-  governedIM as gimc,
-  governedImRDS as gimRDS,
-} from "../deps.ts";
+import { governedIM as gimc, governedImRDS as gimRDS } from "../deps.ts";
 
 export function sqlTypes(
   baseSqlType: gimRDS.SqlType,

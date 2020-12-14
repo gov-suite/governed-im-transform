@@ -1,14 +1,11 @@
 import {
+  artfPersist as ap,
   governedIM as gimc,
   governedImRDS as gimRDS,
   governedImTransform as gimTr,
   specModule as sm,
-  artfPersist as ap,
 } from "./deps.ts";
-import {
-  rdbmsCtxFactory,
-  RdbmsModelSqlTransformerContext,
-} from "./context.ts";
+import { rdbmsCtxFactory, RdbmsModelSqlTransformerContext } from "./context.ts";
 
 export interface RdbmsModelTransformerDialectOptions {
   readonly isRdbmsModelTransformerDialectOptions: true;
