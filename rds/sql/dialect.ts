@@ -208,7 +208,7 @@ export abstract class ANSI implements gimRDS.Dialect {
   }
 
   dateColumnDDL(defn: ColumnSqlDdlGenInput): ColumnSqlDDL {
-    let defaultValue = gimc.isDefaultToNow(defn.column.forAttr)
+    const defaultValue = gimc.isDefaultToNow(defn.column.forAttr)
       ? " DEFAULT CURRENT_DATE"
       : "";
     return {
@@ -219,7 +219,7 @@ export abstract class ANSI implements gimRDS.Dialect {
   }
 
   timeColumnDDL(defn: ColumnSqlDdlGenInput): ColumnSqlDDL {
-    let defaultValue = gimc.isDefaultToNow(defn.column.forAttr)
+    const defaultValue = gimc.isDefaultToNow(defn.column.forAttr)
       ? " DEFAULT CURRENT_TIME"
       : "";
     return {
@@ -230,7 +230,7 @@ export abstract class ANSI implements gimRDS.Dialect {
   }
 
   dateTimeColumnDDL(defn: ColumnSqlDdlGenInput): ColumnSqlDDL {
-    let defaultValue = gimc.isDefaultToNow(defn.column.forAttr)
+    const defaultValue = gimc.isDefaultToNow(defn.column.forAttr)
       ? " DEFAULT CURRENT_TIMESTAMP"
       : "";
     return {
@@ -241,7 +241,7 @@ export abstract class ANSI implements gimRDS.Dialect {
   }
 
   booleanColumnDDL(defn: ColumnSqlDdlGenInput): ColumnSqlDDL {
-    let defaultValue = gimc.isDefaultBooleanValue(defn.column.forAttr)
+    const defaultValue = gimc.isDefaultBooleanValue(defn.column.forAttr)
       ? " DEFAULT FALSE"
       : "";
     return {

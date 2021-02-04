@@ -54,10 +54,10 @@ export class PlantUmlGraphvizTransformer implements gimTr.InfoModelTransformer {
   }
 
   protected column(tc: gimRDS.TableColumn): string {
-    let required = tc.column.nullable ? "" : "*";
+    const required = tc.column.nullable ? "" : "*";
     let descr = tc.column.primaryKey ? "PK" : "";
     if ("isSelfReference" in tc.column.forAttr) descr = "SR";
-    let sqlType = tc.column.references
+    const sqlType = tc.column.references
       ? tc.column.references.table.name(this.reCtx)
       : tc.column.sqlTypes(this.reCtx).nonRefDDL;
     return `        <tr><td port="${
@@ -79,12 +79,12 @@ export class PlantUmlGraphvizTransformer implements gimTr.InfoModelTransformer {
   }
 
   protected table(table: gimRDS.Table): string[] {
-    let columns: string[] = [];
+    const columns: string[] = [];
     for (const column of table.columns) {
       columns.push(this.column({ table: table, column: column }));
     }
 
-    let backRefs: string[] = [];
+    const backRefs: string[] = [];
     if (table.entity.backRefs) {
       for (const backRef of table.entity.backRefs) {
         backRefs.push(this.backRef(table, backRef));
@@ -115,7 +115,7 @@ export class PlantUmlGraphvizTransformer implements gimTr.InfoModelTransformer {
   }
 
   protected relationships(): string[] {
-    let result: string[] = [];
+    const result: string[] = [];
     for (const rel of this.options.rdbmsModel.relationships) {
       if (!this.createEdgePredicate(this.createNodePredicate, rel)) {
         continue;

@@ -92,7 +92,7 @@ export class PlantUmlInfoEngrModelTransformer
   }
 
   protected column(tc: gimRDS.TableColumn): string {
-    let required = tc.column.nullable ? "" : "*";
+    const required = tc.column.nullable ? "" : "*";
     const name = tc.column.primaryKey
       ? `**${tc.column.name(this.reCtx)}**`
       : tc.column.name(this.reCtx);
@@ -102,7 +102,7 @@ export class PlantUmlInfoEngrModelTransformer
         : ` <<FK(${tc.column.references.table.name(this.reCtx)})>>`)
       : "";
     if ("isSelfReference" in tc.column.forAttr) descr = " <<SELF>>";
-    let sqlType = tc.column.references
+    const sqlType = tc.column.references
       ? tc.column.references.column.sqlTypes(this.reCtx).fKRefDDL
       : tc.column.sqlTypes(this.reCtx).nonRefDDL;
     return `    ${required} ${name}: ${sqlType}${descr}`;
@@ -120,7 +120,7 @@ export class PlantUmlInfoEngrModelTransformer
   }
 
   protected table(table: gimRDS.Table): string[] {
-    let columns: string[] = [];
+    const columns: string[] = [];
     const pk = table.primaryKey;
     if (pk) {
       columns.push(this.column({ table: table, column: pk }));
@@ -133,7 +133,7 @@ export class PlantUmlInfoEngrModelTransformer
       columns.push(this.column(tc));
     }
 
-    let backRefs: string[] = [];
+    const backRefs: string[] = [];
     if (table.entity.backRefs) {
       for (const backRef of table.entity.backRefs) {
         backRefs.push(this.backRef(table, backRef));
@@ -166,7 +166,7 @@ export class PlantUmlInfoEngrModelTransformer
   }
 
   protected relationships(): string[] {
-    let result: string[] = [];
+    const result: string[] = [];
     for (const rel of this.options.rdbmsModel.relationships) {
       if (
         !this.includeRelationship(
