@@ -393,7 +393,7 @@ export abstract class ANSI implements gimRDS.Dialect {
         ...query,
         sql: tw.unindentWhitespace(`
         DROP VIEW IF EXISTS ${objDefnName};
-        CREATE OR REPLACE VIEW ${objDefnName}(
+        CREATE VIEW ${objDefnName}(
           ${
           tw.wordWrap(
             view.columns.map((c) => c.name(ctx)).join(", "),
