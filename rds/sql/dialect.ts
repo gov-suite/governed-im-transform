@@ -251,6 +251,17 @@ export abstract class ANSI implements gimRDS.Dialect {
     };
   }
 
+  UuidColumnDDL(defn: ColumnSqlDdlGenInput): ColumnSqlDDL {
+    const defaultValue = gimc.isDefaultUuidValue(defn.column.forAttr)
+      ? " DEFAULT uuid_generate_v4 ()"
+      : "";
+    return {
+      columnDDL: `${defn.columnName} ${
+        vm.resolveTextValue(defn.ctx, defn.sqlTypes.nonRefDDL)
+      }${defn.primaryKey}${defn.notNull}${defaultValue}`,
+    };
+  }
+
   genericColumnDDL(defn: ColumnSqlDdlGenInput): ColumnSqlDDL {
     return {
       columnDDL: `${defn.columnName} ${
@@ -270,6 +281,7 @@ export abstract class ANSI implements gimRDS.Dialect {
     if (gimc.isTime(defn.column.forAttr)) return this.timeColumnDDL(defn);
     if (gimc.isDate(defn.column.forAttr)) return this.dateColumnDDL(defn);
     if (gimc.isBoolean(defn.column.forAttr)) return this.booleanColumnDDL(defn);
+    if (gimc.isUuidText(defn.column.forAttr)) return this.UuidColumnDDL(defn);
     return this.genericColumnDDL(defn);
   }
 

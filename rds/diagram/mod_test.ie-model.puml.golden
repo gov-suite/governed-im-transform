@@ -17,6 +17,7 @@
     --
     * party_name: VARCHAR(255)
     * party_type_id: INTEGER <<ENUM(party_type)>> 
+    * party_uuid: UUID
     --
     identifiers: PartyIdentifier[]
     relatedParties: PartyRelation[]
