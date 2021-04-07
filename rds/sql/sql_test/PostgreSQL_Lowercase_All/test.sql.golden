@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS party (
     party_id BIGSERIAL PRIMARY KEY,
     party_name VARCHAR(255) NOT NULL,
     party_type_id INTEGER NOT NULL,
+    party_uuid UUID NOT NULL DEFAULT uuid_generate_v4 (),
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_on TIMESTAMPTZ,
     record_status_id INTEGER NOT NULL DEFAULT 1,

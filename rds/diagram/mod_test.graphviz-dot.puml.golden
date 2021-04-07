@@ -11,6 +11,7 @@ digraph G {
         <tr><td port="PARTY_ID">*</td><td>PK</td><td>PARTY_ID</td><td>INTEGER</td></tr>
         <tr><td port="PARTY_NAME">*</td><td></td><td>PARTY_NAME</td><td>VARCHAR(255)</td></tr>
         <tr><td port="PARTY_TYPE_ID">*</td><td></td><td>PARTY_TYPE_ID</td><td>PARTY_TYPE</td></tr>
+        <tr><td port="PARTY_UUID">*</td><td></td><td>PARTY_UUID</td><td>UUID</td></tr>
         <tr><td port="CREATED_AT">*</td><td></td><td>CREATED_AT</td><td>TIMESTAMPTZ</td></tr>
         <tr><td port="UPDATED_ON"></td><td></td><td>UPDATED_ON</td><td>TIMESTAMPTZ</td></tr>
         <tr><td port="RECORD_STATUS_ID">*</td><td></td><td>RECORD_STATUS_ID</td><td>RECORD_STATUS</td></tr>

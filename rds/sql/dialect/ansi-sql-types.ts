@@ -247,6 +247,44 @@ export class EncryptedTextSqlType implements gimRDS.AttrSqlType {
   }
 }
 
+export class UuidSqlType implements gimRDS.AttrSqlType {
+  static readonly baseSqlType = `UUID`;
+  readonly attr: gimc.UuidText;
+
+  constructor(
+    ctx: gimRDS.RdbmsEngineContext,
+    readonly forSrc: gimRDS.AttrMapperSource,
+  ) {
+    if (gimc.isAttribute(forSrc)) {
+      this.attr = forSrc as gimc.UuidText;
+    } else {
+      this.attr = forSrc.attr as gimc.UuidText;
+    }
+  }
+
+  get forAttr(): gimc.Attribute {
+    return this.attr;
+  }
+
+  persistentColumn(
+    ctx: gimRDS.RdbmsEngineContext,
+    table: gimRDS.Table,
+  ): gimRDS.PersistentColumn {
+    // TODO push this into dialect, not here (this is supposed to be generic?)
+    return new gimRDS.UuidColumn(ctx, table, this);
+  }
+
+  transientColumn(
+    ctx: gimRDS.RdbmsEngineContext,
+    te: gimc.TransientEntity,
+  ): gimRDS.TransientColumn {
+    return new gimRDS.UuidTransientColumn(ctx, te, this);
+  }
+  sqlTypes(ctx: gimRDS.RdbmsEngineContext): gimRDS.ContextualSqlTypes {
+    return sqlTypes(UuidSqlType.baseSqlType);
+  }
+}
+
 export class TextIdentitySqlType implements gimRDS.AttrSqlType {
   readonly attr: gimc.TextIdentity;
 
@@ -578,6 +616,10 @@ export class AttrAnsiRdbmsEngineSqlTypesMapper
     {
       registryKeys: [gimc.DEFAULT_REGISTRY_KEY_MODULE + ".attr.EncryptedText"],
       constructor: EncryptedTextSqlType,
+    },
+    {
+      registryKeys: [gimc.DEFAULT_REGISTRY_KEY_MODULE + ".attr.UuidText"],
+      constructor: UuidSqlType,
     },
     {
       registryKeys: [gimc.DEFAULT_REGISTRY_KEY_MODULE + ".attr.Date"],
