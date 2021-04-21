@@ -3,9 +3,9 @@
 DROP VIEW IF EXISTS person_demographics;
 CREATE VIEW person_demographics(
   id, person_fname, person_mname, person_lname, electronic_details, dob, address_line1,
-  address_line2, address_city, address_state, address_country, address_zip) AS 
+  address_line2, address_city, address_state, address_country, address_zip, party_uuid) AS 
 SELECT person.id, person_fname, person_mname, person_lname, electronic_details, dob, address_line1,
-address_line2, address_city, address_state, address_country, address_zip
+address_line2, address_city, address_state, address_country, address_zip, party_uuid
 FROM party 
        INNER JOIN person ON party.id = person.id
        LEFT JOIN contact_land ON party.id = contact_land.party_id
