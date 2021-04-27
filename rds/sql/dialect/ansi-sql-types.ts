@@ -160,7 +160,7 @@ export class AutoIdentityNativeSqlType implements gimRDS.AttrSqlType {
   }
 
   sqlTypes(ctx: gimRDS.RdbmsEngineContext): gimRDS.ContextualSqlTypes {
-    return sqlTypes(IntegerSqlType.baseSqlType);
+    return sqlTypes(UuidSqlType.baseSqlType);
   }
 }
 

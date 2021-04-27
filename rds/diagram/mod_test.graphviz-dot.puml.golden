@@ -8,7 +8,7 @@ digraph G {
   PARTY [
             label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
                 <tr><td colspan="4">PARTY</td></tr>
-        <tr><td port="PARTY_ID">*</td><td>PK</td><td>PARTY_ID</td><td>INTEGER</td></tr>
+        <tr><td port="PARTY_ID">*</td><td>PK</td><td>PARTY_ID</td><td>UUID</td></tr>
         <tr><td port="PARTY_NAME">*</td><td></td><td>PARTY_NAME</td><td>VARCHAR(255)</td></tr>
         <tr><td port="PARTY_TYPE_ID">*</td><td></td><td>PARTY_TYPE_ID</td><td>PARTY_TYPE</td></tr>
         <tr><td port="PARTY_UUID">*</td><td></td><td>PARTY_UUID</td><td>UUID</td></tr>
@@ -22,7 +22,7 @@ digraph G {
   PARTY_IDENTIFIER [
             label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
                 <tr><td colspan="4">PARTY_IDENTIFIER</td></tr>
-        <tr><td port="PARTY_IDENTIFIER_ID">*</td><td>PK</td><td>PARTY_IDENTIFIER_ID</td><td>INTEGER</td></tr>
+        <tr><td port="PARTY_IDENTIFIER_ID">*</td><td>PK</td><td>PARTY_IDENTIFIER_ID</td><td>UUID</td></tr>
         <tr><td port="PARTY_ID">*</td><td></td><td>PARTY_ID</td><td>PARTY</td></tr>
         <tr><td port="IDENTIFIER_NAME">*</td><td></td><td>IDENTIFIER_NAME</td><td>VARCHAR(255)</td></tr>
         <tr><td port="IDENTIFIER_VALUE">*</td><td></td><td>IDENTIFIER_VALUE</td><td>VARCHAR(255)</td></tr>
@@ -35,7 +35,7 @@ digraph G {
   PARTY_RELATION [
             label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
                 <tr><td colspan="4">PARTY_RELATION</td></tr>
-        <tr><td port="PARTY_RELATION_ID">*</td><td>PK</td><td>PARTY_RELATION_ID</td><td>INTEGER</td></tr>
+        <tr><td port="PARTY_RELATION_ID">*</td><td>PK</td><td>PARTY_RELATION_ID</td><td>UUID</td></tr>
         <tr><td port="ORIGIN_PARTY_ID">*</td><td></td><td>ORIGIN_PARTY_ID</td><td>PARTY</td></tr>
         <tr><td port="RELATED_PARTY_ID">*</td><td></td><td>RELATED_PARTY_ID</td><td>PARTY</td></tr>
         <tr><td port="PARTY_RELATION_TYPE_ID">*</td><td></td><td>PARTY_RELATION_TYPE_ID</td><td>PARTY_RELATION_TYPE</td></tr>
@@ -49,7 +49,7 @@ digraph G {
                 <tr><td colspan="4">ORGANIZATION</td></tr>
         <tr><td port="PARTY_ID">*</td><td>PK</td><td>PARTY_ID</td><td>PARTY</td></tr>
         <tr><td port="ORGANIZATION_TYPE_ID">*</td><td></td><td>ORGANIZATION_TYPE_ID</td><td>ORGANIZATION_TYPE</td></tr>
-        <tr><td port="PARENT_ORG_ID"></td><td>SR</td><td>PARENT_ORG_ID</td><td>INTEGER</td></tr>
+        <tr><td port="PARENT_ORG_ID"></td><td>SR</td><td>PARENT_ORG_ID</td><td>UUID</td></tr>
         <tr><td port="ORG_NAME">*</td><td></td><td>ORG_NAME</td><td>VARCHAR(255)</td></tr>
         <tr><td port="CREATED_AT">*</td><td></td><td>CREATED_AT</td><td>TIMESTAMPTZ</td></tr>
         <tr><td port="UPDATED_ON"></td><td></td><td>UPDATED_ON</td><td>TIMESTAMPTZ</td></tr>
@@ -74,7 +74,7 @@ digraph G {
   CONTACT_ELECTRONIC [
             label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
                 <tr><td colspan="4">CONTACT_ELECTRONIC</td></tr>
-        <tr><td port="CONTACT_ELECTRONIC_ID">*</td><td>PK</td><td>CONTACT_ELECTRONIC_ID</td><td>INTEGER</td></tr>
+        <tr><td port="CONTACT_ELECTRONIC_ID">*</td><td>PK</td><td>CONTACT_ELECTRONIC_ID</td><td>UUID</td></tr>
         <tr><td port="ELECTRONIC_DETAILS">*</td><td></td><td>ELECTRONIC_DETAILS</td><td>VARCHAR(255)</td></tr>
         <tr><td port="CONTACT_TYPE_ID">*</td><td></td><td>CONTACT_TYPE_ID</td><td>CONTACT_TYPE</td></tr>
         <tr><td port="PARTY_ID">*</td><td></td><td>PARTY_ID</td><td>PARTY</td></tr>
@@ -86,7 +86,7 @@ digraph G {
   CONTACT_LAND [
             label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
                 <tr><td colspan="4">CONTACT_LAND</td></tr>
-        <tr><td port="CONTACT_LAND_ID">*</td><td>PK</td><td>CONTACT_LAND_ID</td><td>INTEGER</td></tr>
+        <tr><td port="CONTACT_LAND_ID">*</td><td>PK</td><td>CONTACT_LAND_ID</td><td>UUID</td></tr>
         <tr><td port="ADDRESS_LINE1">*</td><td></td><td>ADDRESS_LINE1</td><td>VARCHAR(255)</td></tr>
         <tr><td port="ADDRESS_LINE2">*</td><td></td><td>ADDRESS_LINE2</td><td>VARCHAR(255)</td></tr>
         <tr><td port="ADDRESS_ZIP">*</td><td></td><td>ADDRESS_ZIP</td><td>VARCHAR(255)</td></tr>
@@ -103,7 +103,7 @@ digraph G {
   CONTACT_TELE [
             label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
                 <tr><td colspan="4">CONTACT_TELE</td></tr>
-        <tr><td port="CONTACT_TELE_ID">*</td><td>PK</td><td>CONTACT_TELE_ID</td><td>INTEGER</td></tr>
+        <tr><td port="CONTACT_TELE_ID">*</td><td>PK</td><td>CONTACT_TELE_ID</td><td>UUID</td></tr>
         <tr><td port="NUMBER">*</td><td></td><td>NUMBER</td><td>VARCHAR(255)</td></tr>
         <tr><td port="CONTACT_TYPE_ID">*</td><td></td><td>CONTACT_TYPE_ID</td><td>CONTACT_TYPE</td></tr>
         <tr><td port="PARTY_ID">*</td><td></td><td>PARTY_ID</td><td>PARTY</td></tr>
@@ -115,7 +115,7 @@ digraph G {
   ACCOUNT [
             label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
                 <tr><td colspan="4">ACCOUNT</td></tr>
-        <tr><td port="ACCOUNT_ID">*</td><td>PK</td><td>ACCOUNT_ID</td><td>INTEGER</td></tr>
+        <tr><td port="ACCOUNT_ID">*</td><td>PK</td><td>ACCOUNT_ID</td><td>UUID</td></tr>
         <tr><td port="ACCOUNT_TYPE_ID">*</td><td></td><td>ACCOUNT_TYPE_ID</td><td>ACCOUNT_TYPE</td></tr>
         <tr><td port="ACCOUNT_NAME">*</td><td></td><td>ACCOUNT_NAME</td><td>VARCHAR(255)</td></tr>
         <tr><td port="CREATED_AT">*</td><td></td><td>CREATED_AT</td><td>TIMESTAMPTZ</td></tr>
@@ -127,7 +127,7 @@ digraph G {
   ACCOUNT_IDENTIFIER [
             label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
                 <tr><td colspan="4">ACCOUNT_IDENTIFIER</td></tr>
-        <tr><td port="ACCOUNT_IDENTIFIER_ID">*</td><td>PK</td><td>ACCOUNT_IDENTIFIER_ID</td><td>INTEGER</td></tr>
+        <tr><td port="ACCOUNT_IDENTIFIER_ID">*</td><td>PK</td><td>ACCOUNT_IDENTIFIER_ID</td><td>UUID</td></tr>
         <tr><td port="ACCOUNT_ID">*</td><td></td><td>ACCOUNT_ID</td><td>ACCOUNT</td></tr>
         <tr><td port="IDENTIFIER_NAME">*</td><td></td><td>IDENTIFIER_NAME</td><td>VARCHAR(255)</td></tr>
         <tr><td port="IDENTIFIER_VALUE">*</td><td></td><td>IDENTIFIER_VALUE</td><td>VARCHAR(255)</td></tr>
@@ -141,7 +141,7 @@ digraph G {
   CONFIGURATION_SCOPE [
             label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
                 <tr><td colspan="4">CONFIGURATION_SCOPE</td></tr>
-        <tr><td port="CONFIGURATION_SCOPE_ID">*</td><td>PK</td><td>CONFIGURATION_SCOPE_ID</td><td>INTEGER</td></tr>
+        <tr><td port="CONFIGURATION_SCOPE_ID">*</td><td>PK</td><td>CONFIGURATION_SCOPE_ID</td><td>UUID</td></tr>
         <tr><td port="CODE">*</td><td></td><td>CODE</td><td>VARCHAR(255)</td></tr>
         <tr><td port="VALUE">*</td><td></td><td>VALUE</td><td>VARCHAR(255)</td></tr>
         <tr><td port="DESCRIPTION">*</td><td></td><td>DESCRIPTION</td><td>VARCHAR(255)</td></tr>
@@ -154,7 +154,7 @@ digraph G {
   MASTER_CONFIGURATION [
             label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
                 <tr><td colspan="4">MASTER_CONFIGURATION</td></tr>
-        <tr><td port="MASTER_CONFIGURATION_ID">*</td><td>PK</td><td>MASTER_CONFIGURATION_ID</td><td>INTEGER</td></tr>
+        <tr><td port="MASTER_CONFIGURATION_ID">*</td><td>PK</td><td>MASTER_CONFIGURATION_ID</td><td>UUID</td></tr>
         <tr><td port="CONFIGURATION_SCOPE_ID">*</td><td></td><td>CONFIGURATION_SCOPE_ID</td><td>CONFIGURATION_SCOPE</td></tr>
         <tr><td port="NAME">*</td><td></td><td>NAME</td><td>VARCHAR(255)</td></tr>
         <tr><td port="DESCRIPTION">*</td><td></td><td>DESCRIPTION</td><td>VARCHAR(255)</td></tr>
@@ -169,7 +169,7 @@ digraph G {
   CONFIGURATION_VALUE [
             label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
                 <tr><td colspan="4">CONFIGURATION_VALUE</td></tr>
-        <tr><td port="CONFIGURATION_VALUE_ID">*</td><td>PK</td><td>CONFIGURATION_VALUE_ID</td><td>INTEGER</td></tr>
+        <tr><td port="CONFIGURATION_VALUE_ID">*</td><td>PK</td><td>CONFIGURATION_VALUE_ID</td><td>UUID</td></tr>
         <tr><td port="PARTY_ID">*</td><td></td><td>PARTY_ID</td><td>PARTY</td></tr>
         <tr><td port="MASTER_CONFIGURATION_ID">*</td><td></td><td>MASTER_CONFIGURATION_ID</td><td>MASTER_CONFIGURATION</td></tr>
         <tr><td port="VALUE">*</td><td></td><td>VALUE</td><td>JSON</td></tr>
@@ -184,7 +184,7 @@ digraph G {
   CONFIGURATION_MASTER_OPTIONS [
             label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
                 <tr><td colspan="4">CONFIGURATION_MASTER_OPTIONS</td></tr>
-        <tr><td port="CONFIGURATION_MASTER_OPTIONS_ID">*</td><td>PK</td><td>CONFIGURATION_MASTER_OPTIONS_ID</td><td>INTEGER</td></tr>
+        <tr><td port="CONFIGURATION_MASTER_OPTIONS_ID">*</td><td>PK</td><td>CONFIGURATION_MASTER_OPTIONS_ID</td><td>UUID</td></tr>
         <tr><td port="NAME">*</td><td></td><td>NAME</td><td>VARCHAR(255)</td></tr>
         <tr><td port="DESCRIPTION">*</td><td></td><td>DESCRIPTION</td><td>VARCHAR(255)</td></tr>
         <tr><td port="TYPE">*</td><td></td><td>TYPE</td><td>VARCHAR(255)</td></tr>
@@ -196,7 +196,7 @@ digraph G {
   CONFIGURATION_FEATURE_FLAG [
             label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
                 <tr><td colspan="4">CONFIGURATION_FEATURE_FLAG</td></tr>
-        <tr><td port="CONFIGURATION_FEATURE_FLAG_ID">*</td><td>PK</td><td>CONFIGURATION_FEATURE_FLAG_ID</td><td>INTEGER</td></tr>
+        <tr><td port="CONFIGURATION_FEATURE_FLAG_ID">*</td><td>PK</td><td>CONFIGURATION_FEATURE_FLAG_ID</td><td>UUID</td></tr>
         <tr><td port="PARTY_ID">*</td><td></td><td>PARTY_ID</td><td>PARTY</td></tr>
         <tr><td port="CONFIGURATION_MASTER_OPTIONS_ID">*</td><td></td><td>CONFIGURATION_MASTER_OPTIONS_ID</td><td>CONFIGURATION_MASTER_OPTIONS</td></tr>
         <tr><td port="MASTER_CONFIGURATION_ID">*</td><td></td><td>MASTER_CONFIGURATION_ID</td><td>MASTER_CONFIGURATION</td></tr>
@@ -208,7 +208,7 @@ digraph G {
   PLPGSQL_CHECK_RESULT [
             label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
                 <tr><td colspan="4">PLPGSQL_CHECK_RESULT</td></tr>
-        <tr><td port="PLPGSQL_CHECK_RESULT_ID">*</td><td>PK</td><td>PLPGSQL_CHECK_RESULT_ID</td><td>INTEGER</td></tr>
+        <tr><td port="PLPGSQL_CHECK_RESULT_ID">*</td><td>PK</td><td>PLPGSQL_CHECK_RESULT_ID</td><td>UUID</td></tr>
         <tr><td port="FUNCTION_ID"></td><td></td><td>FUNCTION_ID</td><td>VARCHAR(255)</td></tr>
         <tr><td port="LINE_NO"></td><td></td><td>LINE_NO</td><td>INTEGER</td></tr>
         <tr><td port="STATEMENT"></td><td></td><td>STATEMENT</td><td>VARCHAR(3000)</td></tr>

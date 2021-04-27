@@ -10,9 +10,9 @@ INSERT INTO party_type (party_type_id, value, code) VALUES (3, 'Person', 'PERSON
 
 INSERT INTO party (party_name, party_type_id, record_status_id) VALUES ('SYSTEM', 1, 1);
 
-INSERT INTO organization_type (organization_type_id, value, code, party_id, record_status_id) VALUES (1, 'Tenant', 'TENANT', (select party_id from party where party_name = 'SYSTEM'), 1);
-INSERT INTO organization_type (organization_type_id, value, code, party_id, record_status_id) VALUES (2, 'Institution', 'INSTITUTION', (select party_id from party where party_name = 'SYSTEM'), 1);
-INSERT INTO organization_type (organization_type_id, value, code, party_id, record_status_id) VALUES (3, 'Business Unit', 'BUSINESS_UNIT', (select party_id from party where party_name = 'SYSTEM'), 1);
+INSERT INTO organization_type (organization_type_id, value, code, party_id, record_status_id) VALUES ('40e6215d-b5c6-4896-987c-f30f3678f608', 'Tenant', 'TENANT', (select party_id from party where party_name = 'SYSTEM'), 1);
+INSERT INTO organization_type (organization_type_id, value, code, party_id, record_status_id) VALUES ('6ecd8c99-4036-403d-bf84-cf8400f67836', 'Institution', 'INSTITUTION', (select party_id from party where party_name = 'SYSTEM'), 1);
+INSERT INTO organization_type (organization_type_id, value, code, party_id, record_status_id) VALUES ('3f333df6-90a4-4fda-8dd3-9485d27cee36', 'Business Unit', 'BUSINESS_UNIT', (select party_id from party where party_name = 'SYSTEM'), 1);
 
 INSERT INTO person_gender (person_gender_id, value, code) VALUES (1, 'Male', 'MALE');
 INSERT INTO person_gender (person_gender_id, value, code) VALUES (2, 'Female', 'FEMALE');

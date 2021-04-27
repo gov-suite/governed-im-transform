@@ -13,7 +13,7 @@
   }
 
   entity "party" as party {
-    * **id**: INTEGER
+    * **id**: UUID
     --
     * party_name: VARCHAR(255)
     * party_type_id: INTEGER <<ENUM(party_type)>> 
@@ -23,29 +23,29 @@
     relatedParties: PartyRelation[]
   }
   entity "party_identifier" as party_identifier {
-    * **id**: INTEGER
+    * **id**: UUID
     --
-    * party_id: INTEGER <<FK(party)>>
+    * party_id: UUID <<FK(party)>>
     * identifier_name: VARCHAR(255)
     * identifier_value: VARCHAR(255)
     * party_identifier_source_id: INTEGER <<ENUM(party_identifier_source)>> 
   }
   entity "party_relation" as party_relation {
-    * **id**: INTEGER
+    * **id**: UUID
     --
-    * origin_party_id: INTEGER <<FK(party)>>
-    * related_party_id: INTEGER <<FK(party)>>
+    * origin_party_id: UUID <<FK(party)>>
+    * related_party_id: UUID <<FK(party)>>
     * party_relation_type_id: INTEGER <<ENUM(party_relation_type)>> 
   }
   entity "organization" as organization {
-    * **id**: INTEGER <<FK(party)>>
+    * **id**: UUID <<FK(party)>>
     --
-    * organization_type_id: INTEGER <<ENUM(organization_type)>> 
-     parent_org_id: INTEGER <<SELF>>
+    * organization_type_id: UUID <<ENUM(organization_type)>> 
+     parent_org_id: UUID <<SELF>>
     * org_name: VARCHAR(255)
   }
   entity "person" as person {
-    * **id**: INTEGER <<FK(party)>>
+    * **id**: UUID <<FK(party)>>
     --
     * person_type_id: INTEGER <<ENUM(person_type)>> 
     * person_fname: VARCHAR(255)
@@ -55,14 +55,14 @@
     * dob: TIMESTAMPTZ
   }
   entity "contact_electronic" as contact_electronic {
-    * **id**: INTEGER
+    * **id**: UUID
     --
     * electronic_details: VARCHAR(255)
     * contact_type_id: INTEGER <<ENUM(contact_type)>> 
-    * party_id: INTEGER <<FK(party)>>
+    * party_id: UUID <<FK(party)>>
   }
   entity "contact_land" as contact_land {
-    * **id**: INTEGER
+    * **id**: UUID
     --
     * address_line1: VARCHAR(255)
     * address_line2: VARCHAR(255)
@@ -71,17 +71,17 @@
     * address_state: VARCHAR(255)
     * address_country: VARCHAR(255)
     * contact_type_id: INTEGER <<ENUM(contact_type)>> 
-    * party_id: INTEGER <<FK(party)>>
+    * party_id: UUID <<FK(party)>>
   }
   entity "contact_tele" as contact_tele {
-    * **id**: INTEGER
+    * **id**: UUID
     --
     * number: VARCHAR(255)
     * contact_type_id: INTEGER <<ENUM(contact_type)>> 
-    * party_id: INTEGER <<FK(party)>>
+    * party_id: UUID <<FK(party)>>
   }
   entity "account" as account {
-    * **id**: INTEGER
+    * **id**: UUID
     --
     * account_type_id: INTEGER <<ENUM(account_type)>> 
     * account_name: VARCHAR(255)
@@ -89,16 +89,16 @@
     identifiers: AccountIdentifier[]
   }
   entity "account_identifier" as account_identifier {
-    * **id**: INTEGER
+    * **id**: UUID
     --
-    * account_id: INTEGER <<FK(account)>>
+    * account_id: UUID <<FK(account)>>
     * identifier_name: VARCHAR(255)
     * identifier_value: VARCHAR(255)
     * identifier_value_encrypted: VARCHAR(255)
     * account_auth_type_id: INTEGER <<ENUM(account_auth_type)>> 
   }
   entity "configuration_scope" as configuration_scope {
-    * **id**: INTEGER
+    * **id**: UUID
     --
     * code: VARCHAR(255)
     * value: VARCHAR(255)
@@ -106,9 +106,9 @@
     * hierarchy_level: INTEGER
   }
   entity "master_configuration" as master_configuration {
-    * **id**: INTEGER
+    * **id**: UUID
     --
-    * configuration_scope_id: INTEGER <<FK(configuration_scope)>>
+    * configuration_scope_id: UUID <<FK(configuration_scope)>>
     * name: VARCHAR(255)
     * description: VARCHAR(255)
     * default_value: VARCHAR(255)
@@ -116,31 +116,31 @@
     * config_type: VARCHAR(255)
   }
   entity "configuration_value" as configuration_value {
-    * **id**: INTEGER
+    * **id**: UUID
     --
-    * party_id: INTEGER <<FK(party)>>
-    * master_configuration_id: INTEGER <<FK(master_configuration)>>
+    * party_id: UUID <<FK(party)>>
+    * master_configuration_id: UUID <<FK(master_configuration)>>
     * value: JSON
     * is_multivalue: BOOLEAN
     * nameas: VARCHAR(255)
     * description: VARCHAR(255)
   }
   entity "configuration_master_options" as configuration_master_options {
-    * **id**: INTEGER
+    * **id**: UUID
     --
     * name: VARCHAR(255)
     * description: VARCHAR(255)
     * type: VARCHAR(255)
   }
   entity "configuration_feature_flag" as configuration_feature_flag {
-    * **id**: INTEGER
+    * **id**: UUID
     --
-    * party_id: INTEGER <<FK(party)>>
-    * configuration_master_options_id: INTEGER <<FK(configuration_master_options)>>
-    * master_configuration_id: INTEGER <<FK(master_configuration)>>
+    * party_id: UUID <<FK(party)>>
+    * configuration_master_options_id: UUID <<FK(configuration_master_options)>>
+    * master_configuration_id: UUID <<FK(master_configuration)>>
   }
   entity "plpgsql_check_result" as plpgsql_check_result {
-    * **id**: INTEGER
+    * **id**: UUID
     --
      function_id: VARCHAR(255)
      line_no: INTEGER

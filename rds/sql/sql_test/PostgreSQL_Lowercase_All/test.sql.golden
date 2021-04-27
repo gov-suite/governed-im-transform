@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS party_type (
 );
 
 CREATE TABLE IF NOT EXISTS party (
-    party_id BIGSERIAL PRIMARY KEY,
+    party_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
     party_name VARCHAR(255) NOT NULL,
     party_type_id INTEGER NOT NULL,
     party_uuid UUID NOT NULL DEFAULT uuid_generate_v4 (),
@@ -31,8 +31,8 @@ CREATE TABLE IF NOT EXISTS party_identifier_source (
 );
 
 CREATE TABLE IF NOT EXISTS party_identifier (
-    party_identifier_id BIGSERIAL PRIMARY KEY,
-    party_id INTEGER NOT NULL,
+    party_identifier_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    party_id UUID NOT NULL,
     identifier_name VARCHAR(255) NOT NULL,
     identifier_value VARCHAR(255) NOT NULL,
     party_identifier_source_id INTEGER NOT NULL,
@@ -51,9 +51,9 @@ CREATE TABLE IF NOT EXISTS party_relation_type (
 );
 
 CREATE TABLE IF NOT EXISTS party_relation (
-    party_relation_id BIGSERIAL PRIMARY KEY,
-    origin_party_id INTEGER NOT NULL,
-    related_party_id INTEGER NOT NULL,
+    party_relation_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    origin_party_id UUID NOT NULL,
+    related_party_id UUID NOT NULL,
     party_relation_type_id INTEGER NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_on TIMESTAMPTZ,
@@ -65,8 +65,8 @@ CREATE TABLE IF NOT EXISTS party_relation (
 );
 
 CREATE TABLE IF NOT EXISTS organization_type (
-    organization_type_id BIGSERIAL PRIMARY KEY,
-    party_id INTEGER NOT NULL DEFAULT 1,
+    organization_type_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    party_id UUID NOT NULL DEFAULT '672124b6-9894-11e5-be38-001d42e813fe',
     code VARCHAR(255) NOT NULL,
     value VARCHAR(255) NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -77,9 +77,9 @@ CREATE TABLE IF NOT EXISTS organization_type (
 );
 
 CREATE TABLE IF NOT EXISTS organization (
-    party_id INTEGER PRIMARY KEY NOT NULL,
-    organization_type_id INTEGER NOT NULL,
-    parent_org_id INTEGER,
+    party_id UUID PRIMARY KEY NOT NULL,
+    organization_type_id UUID NOT NULL,
+    parent_org_id UUID,
     org_name VARCHAR(255) NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_on TIMESTAMPTZ,
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS person_gender (
 );
 
 CREATE TABLE IF NOT EXISTS person (
-    party_id INTEGER PRIMARY KEY NOT NULL,
+    party_id UUID PRIMARY KEY NOT NULL,
     person_type_id INTEGER NOT NULL,
     person_fname VARCHAR(255) NOT NULL,
     person_mname VARCHAR(255) NOT NULL,
@@ -135,10 +135,10 @@ CREATE TABLE IF NOT EXISTS contact_type (
 );
 
 CREATE TABLE IF NOT EXISTS contact_electronic (
-    contact_electronic_id BIGSERIAL PRIMARY KEY,
+    contact_electronic_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
     electronic_details VARCHAR(255) NOT NULL,
     contact_type_id INTEGER NOT NULL,
-    party_id INTEGER NOT NULL,
+    party_id UUID NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_on TIMESTAMPTZ,
     record_status_id INTEGER NOT NULL DEFAULT 1,
@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS contact_electronic (
 );
 
 CREATE TABLE IF NOT EXISTS contact_land (
-    contact_land_id BIGSERIAL PRIMARY KEY,
+    contact_land_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
     address_line1 VARCHAR(255) NOT NULL,
     address_line2 VARCHAR(255) NOT NULL,
     address_zip VARCHAR(255) NOT NULL,
@@ -156,7 +156,7 @@ CREATE TABLE IF NOT EXISTS contact_land (
     address_state VARCHAR(255) NOT NULL,
     address_country VARCHAR(255) NOT NULL,
     contact_type_id INTEGER NOT NULL,
-    party_id INTEGER NOT NULL,
+    party_id UUID NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_on TIMESTAMPTZ,
     record_status_id INTEGER NOT NULL DEFAULT 1,
@@ -166,10 +166,10 @@ CREATE TABLE IF NOT EXISTS contact_land (
 );
 
 CREATE TABLE IF NOT EXISTS contact_tele (
-    contact_tele_id BIGSERIAL PRIMARY KEY,
+    contact_tele_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
     number VARCHAR(255) NOT NULL,
     contact_type_id INTEGER NOT NULL,
-    party_id INTEGER NOT NULL,
+    party_id UUID NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_on TIMESTAMPTZ,
     record_status_id INTEGER NOT NULL DEFAULT 1,
@@ -191,7 +191,7 @@ CREATE TABLE IF NOT EXISTS account_auth_type (
 );
 
 CREATE TABLE IF NOT EXISTS account (
-    account_id BIGSERIAL PRIMARY KEY,
+    account_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
     account_type_id INTEGER NOT NULL,
     account_name VARCHAR(255) NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -202,8 +202,8 @@ CREATE TABLE IF NOT EXISTS account (
 );
 
 CREATE TABLE IF NOT EXISTS account_identifier (
-    account_identifier_id BIGSERIAL PRIMARY KEY,
-    account_id INTEGER NOT NULL,
+    account_identifier_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    account_id UUID NOT NULL,
     identifier_name VARCHAR(255) NOT NULL,
     identifier_value VARCHAR(255) NOT NULL,
     identifier_value_encrypted VARCHAR(255) NOT NULL,
@@ -217,7 +217,7 @@ CREATE TABLE IF NOT EXISTS account_identifier (
 );
 
 CREATE TABLE IF NOT EXISTS configuration_scope (
-    configuration_scope_id BIGSERIAL PRIMARY KEY,
+    configuration_scope_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
     code VARCHAR(255) NOT NULL,
     value VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
@@ -229,8 +229,8 @@ CREATE TABLE IF NOT EXISTS configuration_scope (
 );
 
 CREATE TABLE IF NOT EXISTS master_configuration (
-    master_configuration_id BIGSERIAL PRIMARY KEY,
-    configuration_scope_id INTEGER NOT NULL,
+    master_configuration_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    configuration_scope_id UUID NOT NULL,
     name VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
     default_value VARCHAR(255) NOT NULL,
@@ -244,9 +244,9 @@ CREATE TABLE IF NOT EXISTS master_configuration (
 );
 
 CREATE TABLE IF NOT EXISTS configuration_value (
-    configuration_value_id BIGSERIAL PRIMARY KEY,
-    party_id INTEGER NOT NULL,
-    master_configuration_id INTEGER NOT NULL,
+    configuration_value_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    party_id UUID NOT NULL,
+    master_configuration_id UUID NOT NULL,
     value JSON NOT NULL,
     is_multivalue BOOLEAN NOT NULL DEFAULT FALSE,
     nameas VARCHAR(255) NOT NULL,
@@ -260,7 +260,7 @@ CREATE TABLE IF NOT EXISTS configuration_value (
 );
 
 CREATE TABLE IF NOT EXISTS configuration_master_options (
-    configuration_master_options_id BIGSERIAL PRIMARY KEY,
+    configuration_master_options_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
     name VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
     type VARCHAR(255) NOT NULL,
@@ -271,10 +271,10 @@ CREATE TABLE IF NOT EXISTS configuration_master_options (
 );
 
 CREATE TABLE IF NOT EXISTS configuration_feature_flag (
-    configuration_feature_flag_id BIGSERIAL PRIMARY KEY,
-    party_id INTEGER NOT NULL,
-    configuration_master_options_id INTEGER NOT NULL,
-    master_configuration_id INTEGER NOT NULL,
+    configuration_feature_flag_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    party_id UUID NOT NULL,
+    configuration_master_options_id UUID NOT NULL,
+    master_configuration_id UUID NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_on TIMESTAMPTZ,
     record_status_id INTEGER NOT NULL DEFAULT 1,
@@ -285,7 +285,7 @@ CREATE TABLE IF NOT EXISTS configuration_feature_flag (
 );
 
 CREATE TABLE IF NOT EXISTS plpgsql_check_result (
-    plpgsql_check_result_id BIGSERIAL PRIMARY KEY,
+    plpgsql_check_result_id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
     function_id VARCHAR(255),
     line_no INTEGER,
     statement VARCHAR(3000),

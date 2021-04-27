@@ -53,8 +53,9 @@ export abstract class AbstractPostgreSqlDialect extends diaImpl.ANSI {
   autoIdentityNativeColumnDDL(
     defn: diaImpl.ColumnSqlDdlGenInput,
   ): diaImpl.ColumnSqlDDL {
+    const defaultValue = "DEFAULT uuid_generate_v4 ()";
     return {
-      columnDDL: `${defn.columnName} BIGSERIAL PRIMARY KEY`,
+      columnDDL: `${defn.columnName} UUID PRIMARY KEY ${defaultValue}`,
     };
   }
 
