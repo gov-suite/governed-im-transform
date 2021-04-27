@@ -18,9 +18,10 @@ export class SQLiteDialect extends diaImpl.ANSI {
   autoIdentityNativeColumnDDL(
     defn: diaImpl.ColumnSqlDdlGenInput,
   ): diaImpl.ColumnSqlDDL {
+    const defaultValue = "DEFAULT uuid_generate_v4 ()";
     return {
       columnDDL:
-        `${defn.columnName} ${defn.sqlTypes.nonRefDDL} PRIMARY KEY AUTOINCREMENT`,
+        `${defn.columnName} ${defn.sqlTypes.nonRefDDL} PRIMARY KEY ${defaultValue}`,
     };
   }
 }
